@@ -1,5 +1,5 @@
 const express = require('express');
-const loggerModule = require('../logger/logger.js') // Handler or Controler (Imported)
+const loggerModule = require('../logger/logger.js')
 const helperModule = require('../util/helper.js')
 const formatterModule = require('../validator/formatter.js')
 
