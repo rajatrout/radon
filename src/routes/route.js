@@ -13,9 +13,15 @@ router.get('/month', function(req, res) {
     const lastNineOddNumbers = [1, 3, 5, 7, 9, 11, 13, 15, 17]
     console.log(lodashFunctions.tail(lastNineOddNumbers))
 
-    const keyArray = ["horror", "drama", "thriller", "fantacy"]
-    const valueArray = ["The Shining", "Titanic", "Shutter Island", "Labyrinth"]
-    console.log(lodashFunctions.fromPairs(keyArray, valueArray))
+    const keyArray = [
+        ["horror", "The Shining"],
+        ["drama", "Titanic"],
+        ["thriller", "Shutter Island"],
+        ["fantacy", "Labyrinth"]
+
+    ]
+
+    console.log(lodashFunctions.fromPairs(keyArray))
 
     res.send("The solution for problem statement number 4 of nodejs module assignment.")
 });
