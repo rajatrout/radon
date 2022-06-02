@@ -1,40 +1,24 @@
 const express = require('express');
-const myHelper = require('../util/helper')
-const underscore = require('underscore')
+const lodashFunctions = require('lodash');
 
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
-    myHelper.printDate()
-    myHelper.getCurrentMonth()
-    myHelper.getCohortData()
-    let firstElement = underscore.first(['Sabiha','Akash','Pritesh'])
-    console.log('The first element received from underscope function is '+firstElement)
-    res.send('My first ever api!')
+router.get('/month', function(req, res) {
+    const allMonth = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"]
+    console.log(lodashFunctions.chunk(allMonth, 3))
+
+    const arrUnion = [1, 1, 1, 1, 1, 2, 3, 4, 3, 2, 3, 4, 3, 4, 3, 4]
+    console.log(lodashFunctions.union(arrUnion))
+
+    const lastNineOddNumbers = [1, 3, 5, 7, 9, 11, 13, 15, 17]
+    console.log(lodashFunctions.tail(lastNineOddNumbers))
+
+    const keyArray = ["horror", "drama", "thriller", "fantacy"]
+    const valueArray = ["The Shining", "Titanic", "Shutter Island", "Labyrinth"]
+    console.log(lodashFunctions.fromPairs(keyArray, valueArray))
+
+    res.send("The solution for problem statement number 4 of nodejs module assignment.")
 });
-
-router.get('/hello', function (req, res) {
-   
-    res.send('Hello there!')
-});
-
-router.get('/candidates', function(req, res){
-    console.log('Query paramters for this request are '+JSON.stringify(req.query))
-    let gender = req.query.gender
-    let state = req.query.state
-    let district = req.query.district
-    console.log('State is '+state)
-    console.log('Gender is '+gender)
-    console.log('District is '+district)
-    let candidates = ['Akash','Suman']
-    res.send(candidates)
-})
-
-router.get('/candidates/:canidatesName', function(req, res){
-    console.log('The request objects is '+ JSON.stringify(req.params))
-    console.log('Candidates name is '+req.params.canidatesName)
-    res.send('Done')
-})
 
 
 module.exports = router;
