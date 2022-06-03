@@ -35,7 +35,7 @@ let listOfFilms = [{
     "id": 1,
     "name": "The Shining"
 }, {
-    "id": "2",
+    "id": 2,
     "name": "Incendies"
 }, {
     "id": 3,
