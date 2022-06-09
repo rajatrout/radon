@@ -17,5 +17,9 @@ router.post("/createPublisher", publisherController.createPublisher)
 
 router.get("/getAllDetails", bookController.getAllDetails)
 
+router.put("/updateIsHardCover", bookController.updateIsHardCover)
+
+
+
 
 module.exports = router;

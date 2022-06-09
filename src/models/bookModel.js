@@ -5,13 +5,19 @@ const bookSchema = new mongoose.Schema({
     bookName: String,
     authorId: {
         type: ObjectId,
-        ref: "newAuthor"
+        ref: "newAuthor",
+
     },
     bookPrice: Number,
     bookRating: Number,
     publisherId: {
         type: ObjectId,
-        ref: "newPublisher"
+        ref: "newPublisher",
+
+    },
+    isHardCover: {
+        type: Boolean,
+        default: false
     }
 
 }, { timestamps: true });
