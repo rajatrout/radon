@@ -56,7 +56,7 @@ const booksByAuthorId = async function(req, res) {
 
 }
 
-const listOfAuthors = async function(req, res) {
+/*const listOfAuthors = async function(req, res) {
 
     let a = await BookModel.find({ bookRating: { $gte: 4 } }).select({ "authorId": 1, _id: 0 })
     let m = a.map(x => x.authorId)
@@ -76,7 +76,30 @@ const listOfAuthors = async function(req, res) {
     })
 
     res.send({ msg: b })
+}*/
+
+const listOfAuthors = async function(req, res) {
+
+    let a = await BookModel.find({ bookRating: { $gte: 4 } }).select({
+        authorId: 1,
+        _id: 0
+    })
+    for (let x = 0; x < a.length; x++) {
+        let b = await AuthorModel.find({
+            age: {
+                $gt: 50
+            },
+            authorId: a[x].authorId
+        }).select({
+            authorName: 1,
+            _id: 0
+        })
+        res.send({ msg: b.authorName })
+    }
+
 }
+
+
 
 
 module.exports.createAuthor = createAuthor
