@@ -6,6 +6,8 @@ const createProduct = async function(req, res) {
 
     let savedData = await ProductModel.create(data)
     res.send({ msg: savedData })
+
+
 }
 
 module.exports.createProduct = createProduct
