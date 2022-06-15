@@ -23,6 +23,10 @@ const authentication = async function(req, res, next) {
     //<----------------------------------Verify the TOKEN-------------------------------------->
 
     let decodedToken = jwt.verify(token, "functionup-radon");
+    let a = req.params.userId
+    console.log(decodedToken)
+    console.log(a)
+
     if (!decodedToken)
         return res.send({ status: false, msg: "token is invalid" });
 
