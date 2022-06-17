@@ -5,7 +5,7 @@ const authentication = require("../auth/auth.js")
 const authorisation = require("../auth/auth1.js")
 
 
-router.post("/users", userController.createUser)
+router.post("/createusers", userController.createUser)
 
 router.post("/login", userController.loginUser)
 
