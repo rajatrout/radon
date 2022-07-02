@@ -9,8 +9,9 @@ const nullValue = function(value) {
 const valid = /^https?:\/\/.*\.(?:png|jpg|jpeg)/
 
 const createCollege = async function(req, res) {
-    const { name, fullName, logoLink } = req.body
+
     try {
+        const { name, fullName, logoLink } = req.body
 
         if (Object.keys(req.body).length == 0) {
             return res.status(400).send({ status: false, message: "Kindly enter your details." })
@@ -52,7 +53,6 @@ const createCollege = async function(req, res) {
         }
         final.logoLink = logoLink
 
-        console.log(final)
         let saveData = await collegeModel.create(final)
 
         let result = { name: saveData.name, fullName: saveData.fullName, logoLink: saveData.logoLink, isDeleted: saveData.isDeleted }

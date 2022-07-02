@@ -23,15 +23,12 @@ const internSchema = new mongoose.Schema({
     },
     collegeId: {
         type: ObjectId,
-        ref: "Colleges"
+        ref: "College"
     },
     isDeleted: {
         type: Boolean,
         default: false
-    },
-    deletedAt: Date
-
-
+    }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Intern', internSchema);

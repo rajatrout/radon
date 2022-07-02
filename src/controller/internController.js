@@ -3,7 +3,7 @@ const internModel = require('../model/internModel')
 const validator = require('validator')
 const nullValue = function(value) {
     if (value == undefined || value == null) return true
-    if (value.trim().length == 0) return true
+    if (typeof value !== 'string' || value.trim().length == 0) return true
     return false
 }
 
@@ -15,11 +15,13 @@ const createIntern = async function(req, res) {
         if (Object.keys(req.body).length == 0) {
             return res.status(400).send({ status: false, message: "Kindly enter your details." })
         }
-        if (!/^[a-zA-Z ]{3,20}$/.test(name)) {
-            return res.status(400).send({ status: false, message: "Intern name is not valid" })
-        }
+
+
         if (nullValue(name)) {
             return res.status(400).send({ status: false, message: "Invalid intern name or intern name is not mentioned." })
+        }
+        if (!/^[a-zA-Z ]{3,20}$/.test(name)) {
+            return res.status(400).send({ status: false, message: "Intern name is not valid" })
         }
         final.name = name
 
@@ -37,7 +39,7 @@ const createIntern = async function(req, res) {
         final.email = email
 
 
-        if (mobile == undefined || mobile == null) {
+        if (nullValue(mobile)) {
             return res.status(400).send({ status: false, message: "Intern mobile is not mentioned." })
         }
         if (!/^[6-9]{1}[0-9]{9}$/.test(mobile)) {
@@ -50,13 +52,13 @@ const createIntern = async function(req, res) {
         final.mobile = mobile
 
 
-        if (!/^[a-zA-Z ]{3,20}$/.test(collegeName)) {
-            return res.status(400).send({ status: false, message: "College name is not valid" })
-        }
         if (nullValue(collegeName)) {
             return res.status(400).send({ status: false, message: "Invalid intern name or intern name is not mentioned." })
         }
-        let collegeId = await collegeModel.findOne({ name: collegeName.toLowerCase() }).select({ _id: 1 })
+        if (!/^[a-zA-Z ]{3,20}$/.test(collegeName)) {
+            return res.status(400).send({ status: false, message: "College name is not valid" })
+        }
+        let collegeId = await collegeModel.findOne({ name: collegeName.toLowerCase() })
         if (!collegeId) {
             return res.status(400).send({ status: false, message: "Enter a valid college name." })
         }
@@ -68,6 +70,7 @@ const createIntern = async function(req, res) {
         let result = { isDeleted: saveData.isDeleted, name: saveData.name, email: saveData.email, mobile: saveData.mobile, collegeId: saveData.collegeId }
 
         return res.status(201).send({ status: true, data: result })
+
     } catch (error) {
         return res.status(500).send({ status: false, message: error.message })
     }
@@ -82,13 +85,13 @@ const getInterns = async function(req, res) {
             return res.status(400).send({ status: false, message: 'College name is not mentioned!' })
         }
 
-        let collegeId = await collegeModel.findOne({ name: collegeName.toLowerCase() }).select({ _id: 1, name: 1, fullName: 1, logoLink: 1 })
+        let collegeId = await collegeModel.findOne({ name: collegeName.toLowerCase() }).select({ name: 1, fullName: 1, logoLink: 1 })
         if (!collegeId) {
             return res.status(404).send({ status: false, message: "No such College is available!" })
         }
 
 
-        let intern = await internModel.find({ collegeId: collegeId._id }).select({ _id: 1, name: 1, email: 1, mobile: 1 })
+        let intern = await internModel.find({ collegeId: collegeId._id }).select({ name: 1, email: 1, mobile: 1 })
 
 
         let final = { name: collegeId.name, fullName: collegeId.fullName, logoLink: collegeId.logoLink }
@@ -100,6 +103,7 @@ const getInterns = async function(req, res) {
         }
 
         let data = {...final, interns: intern }
+
         return res.status(200).send({ status: true, data })
 
     } catch (error) {
