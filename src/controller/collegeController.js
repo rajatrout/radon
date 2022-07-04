@@ -9,8 +9,9 @@ const nullValue = function(value) {
 const valid = /^https?:\/\/.*\.(?:png|jpg|jpeg)/
 
 const createCollege = async function(req, res) {
-
+    res.setHeader('Access-Control-Allow-Origin', '*')
     try {
+
         const { name, fullName, logoLink } = req.body
 
         if (Object.keys(req.body).length == 0) {

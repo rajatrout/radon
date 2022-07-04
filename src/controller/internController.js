@@ -8,6 +8,7 @@ const nullValue = function(value) {
 }
 
 const createIntern = async function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
     try {
         let final = {}
         const { name, email, mobile, collegeName } = req.body
@@ -78,6 +79,7 @@ const createIntern = async function(req, res) {
 
 
 const getInterns = async function(req, res) {
+    res.setHeader('Access-Control-Allow-Origin', '*')
     try {
         let collegeName = req.query.collegeName
 
